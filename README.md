@@ -1,6 +1,6 @@
 ## PandaSearch
 
-![PandaSearch 概念图](.\images\image.png)
+![PandaSearch 概念图](https://github.com/PandaSearch/PandaSearch/blob/main/images/image.png?raw=true)
 
 技术栈
 
