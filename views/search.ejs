@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PandaSearch</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <header class="max-w-7xl mx-auto sticky top-0 z-50">
+    <div class="navbar bg-base-100">
+      <div class="flex-1">
+        <a class="btn btn-ghost normal-case text-xl">PandaSearch</a>
+      </div>
+      <div class="flex-none gap-2 ">
+        <input type="text" placeholder="Please enter your search keywords..." class="input w-80 focus:max-w-5xl" />
+      </div>
+    </div>
+    </div>
+    </div>
+  </header>
+  <main class="max-w-7xl mx-auto">
+
+    <ul class="flex flex-row flex-wrap">
+      <% results.forEach(function(result){ %>
+        <li class="p-4 w-1/2">
+          <div class="card card-compact bg-base-100 hover:bg-base-200">
+            <div class="card-body">
+              <h2 class="card-title w-full">
+                <a class="link w-full truncate" href="<%= result.href %>">
+                  <%= result.title %>
+                </a>
+              </h2>
+              <p class="h-14">
+                <%= result.content %>
+              </p>
+              <div class="card-actions justify-between">
+                <div class="flex-1 text-slate-400">
+                  <%= result.href.match(/(\w+):\/\/([^/:]+)(:\d*)?([^# ]*)/)[2] %>
+                </div>
+                <% result.engine_id.split(',').forEach(function(id){ %>
+                  <div class="badge badge-outline">
+                    <%= id %>
+                  </div>
+                  <% }); %>
+                  <div class="divider divider-horizontal"></div> 
+                  <a class="link truncate" href="https://web.archive.org/web/<%= result.href %>">
+                    快照
+                  </a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <% }); %>
+    </ul>
+
+    <div class="flex flex-row justify-between flex-nowrap">
+      <div class="join">
+        <button class="join-item btn btn-sm btn-active">1</button>
+        <button class="join-item btn btn-sm">2</button>
+        <button class="join-item btn btn-sm">2</button>
+        <button class="join-item btn btn-sm">2</button>
+        <button class="join-item btn btn-sm">2</button>
+        <button class="join-item btn btn-sm">2</button>
+        <button class="join-item btn btn-sm">2</button>
+        <button class="join-item btn btn-sm">2</button>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>

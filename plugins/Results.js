@@ -58,7 +58,6 @@ export default class Result {
         if (engines.engines.length === 1) {
             return items
         }
-        console.log(items)
         const filterItems = items.filter(item => !this.results.some((v, i) => {
             if (v.hash === item.hash) {
                 this.results[i].engine_id+=',' + item.engine_id
