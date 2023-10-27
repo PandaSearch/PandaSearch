@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>PandaSearch</title>
+  <title>PandaSearch - <%= query %></title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
   <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.3/dist/full.css" rel="stylesheet" type="text/css" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -12,20 +12,25 @@
   <header class="max-w-7xl mx-auto sticky top-0 z-50">
     <div class="navbar bg-base-100">
       <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">PandaSearch</a>
+        <a class="btn btn-ghost normal-case text-xl" href="/">
+          <span class="bg-blue-500 text-white p-2 rounded-lg">Panda</span><span class="text-slate-800">Search</span>
+        </a>
       </div>
-      <div class="flex-none gap-2 ">
-        <input type="text" placeholder="Please enter your search keywords..." class="input w-80 focus:max-w-5xl" />
+      <div class="flex-none gap-2">
+        <div class="join">
+          <input id="Keywords" class="input input-bordered w-80 focus:max-w-5xl join-item" type="text" placeholder="Please enter your search keywords..." value="<%= query %>"/>
+          <button id="Search" class="btn join-item">Search</button>
+        </div>
       </div>
     </div>
     </div>
     </div>
   </header>
-  <main class="max-w-7xl mx-auto">
+  <main class="max-w-7xl mx-auto mb-4">
 
     <ul class="flex flex-row flex-wrap">
       <% results.forEach(function(result){ %>
-        <li class="p-4 w-1/2">
+        <li class="p-2 w-1/2">
           <div class="card card-compact bg-base-100 hover:bg-base-200">
             <div class="card-body">
               <h2 class="card-title w-full">
@@ -45,7 +50,7 @@
                     <%= id %>
                   </div>
                   <% }); %>
-                  <div class="divider divider-horizontal"></div> 
+                  <div class="divider divider-horizontal m-0"></div> 
                   <a class="link truncate" href="https://web.archive.org/web/<%= result.href %>">
                     快照
                   </a>
@@ -56,19 +61,61 @@
         <% }); %>
     </ul>
 
-    <div class="flex flex-row justify-between flex-nowrap">
-      <div class="join">
-        <button class="join-item btn btn-sm btn-active">1</button>
-        <button class="join-item btn btn-sm">2</button>
-        <button class="join-item btn btn-sm">2</button>
-        <button class="join-item btn btn-sm">2</button>
-        <button class="join-item btn btn-sm">2</button>
-        <button class="join-item btn btn-sm">2</button>
-        <button class="join-item btn btn-sm">2</button>
-        <button class="join-item btn btn-sm">2</button>
+    <% 
+      function generateArray(num) {
+        num = Number(num)
+        if (num < 5) {
+            return Array.from({length: 10}, (_, i) => i + 1);
+        } else {
+            let start = num - 4;
+            let end = num + 5;
+            return Array.from({length: end - start + 1}, (_, i) => start + i);
+        }
+      }
+    %>
+    <div class="flex flex-row justify-end flex-nowrap p-2">
+      <div class="join" id="Pages">
+        <% generateArray(page).forEach(value => { %>
+          <% if (Number(page) === Number(value)) { %>
+            <button class="join-item btn btn-sm btn-active"><%= value %></button>
+          <% } else { %>
+            <button class="join-item btn btn-sm"><%= value %></button>
+          <% } %>
+        <% }) %>
       </div>
-    </div>
-  </main>
-</body>
 
+    </div>
+
+  </main>
+  <%- include('components/footer.ejs') %>
+</body>
+<script>
+  const Search = document.getElementById("Search");
+  const Pages = document.getElementById("Pages");
+
+  const searchFunc = () => {
+    const Keywords = document.getElementById("Keywords");
+    const keywords = Keywords.value;
+    location.href = `/search?query=${keywords}`
+  }
+
+  Search.addEventListener('click', searchFunc);
+  document.onkeydown = function (e) {
+    if (!e) e = window.event; //火狐中是 window.event
+    if ((e.keyCode || e.which) == 13) {
+      searchFunc()
+    }
+  }
+
+  Pages.addEventListener('click', (Event) => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const query = urlParams.get('query');
+    const page = Event.target.innerHTML || 1;
+    const pageSzie = urlParams.get('pageSzie') || 10;
+    urlParams.set('page', page)
+    urlParams.set('pageSzie', pageSzie)
+
+    location.href = window.location.protocol + '//' + window.location.host + window.location.pathname + '?' + urlParams.toString()
+  })
+</script>
 </html>

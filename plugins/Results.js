@@ -60,7 +60,13 @@ export default class Result {
         }
         const filterItems = items.filter(item => !this.results.some((v, i) => {
             if (v.hash === item.hash) {
-                this.results[i].engine_id+=',' + item.engine_id
+                const engines = this.results[i].engine_id.split(',')
+                if (engines.find(v => v === item.engine_id) === -1) {
+                    engines.push(item.engine_id)
+                }
+
+                this.results[i].engine_id = (Array.from(new Set(engines))).join(',')
+                
                 return true
             }
             return false

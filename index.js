@@ -15,6 +15,10 @@ app.use(compression());
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 
+app.get('/', function(req, res) {
+  res.render('index');
+});
+
 app.get('/search', async function(req, res){
   const query = req.query.query;
   const page = req.query.page??1;
@@ -27,9 +31,9 @@ app.get('/search', async function(req, res){
 
   const results = await adjust.results();
 
-  res.render('search', { results, page, pageSize });
+  res.render('search', { results, query, page, pageSize });
 });
 
 app.listen(3000, () => {
-  console.log('http://localhost:3000/search?query=?')
+  console.log('http://localhost:3000')
 });

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PandaSearch</title>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@3.9.3/dist/full.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="block h-screen w-screen flex flex-col">
+  <main class="w-[600px] mx-auto flex flex-col justify-center items-center flex-1">
+    <h1 class="text-5xl font-bold max-w-md">
+      <span class="bg-blue-500 text-white p-2 rounded-lg mr-2">Panda</span><span class="text-slate-800">Search</span>
+    </h1>
+    <div class="py-20 w-full">
+      <div class="join w-full">
+        <input id="Keywords" class="input input-bordered join-item flex-1" placeholder="Please enter your search keywords..."/>
+        <button id="Search" class="btn join-item">Search</button>
+      </div>
+    </div>
+  </main>
+  <%- include('components/footer.ejs') %>
+</body>
+<script>
+  const Search = document.getElementById("Search");
+  const searchFunc = () => {
+    const Keywords = document.getElementById("Keywords");
+    const keywords = Keywords.value;
+    location.href = `/search?query=${keywords}`
+  }
+  Search.addEventListener('click', searchFunc);
+
+  document.onkeydown = function (e) {
+    if (!e) e = window.event; //火狐中是 window.event
+    if ((e.keyCode || e.which) == 13) {
+      searchFunc()
+    }
+  }
+</script>
+</html>
