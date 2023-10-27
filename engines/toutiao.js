@@ -31,7 +31,7 @@ export default async (query, { page, pageSize }) => {
     })
     
     const $ = cheerio.load(res.data);
-    await writeFile($.html());
+    // await writeFile($.html());
     const container = $('.main>.s-result-list>div[data-i]');
     const results = [];
     for (let index = 0; index < container.length; index++) {

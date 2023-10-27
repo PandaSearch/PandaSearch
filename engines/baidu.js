@@ -29,13 +29,12 @@ export default async (query, { page, pageSize }) => {
     let url = search_url.replace(/\{key\}/g, query)
     url = url.replace(/\{page\}/g, page)
     url = url.replace(/{pageSize}/g, pageSize)
-    console.log(url)
     const res = await network.get(url, {
         headers
     })
     
     const $ = cheerio.load(res.data);
-    await writeFile($('#content_left').html());
+    // await writeFile($('#content_left').html());
     const container = $('.result.c-container .c-container');
     const results = [];
 
