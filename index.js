@@ -20,7 +20,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/search', async function(req, res){
-  const query = req.query.query;
+  const query = req.query.query.split(/\s+/).join('+');
   const page = req.query.page??1;
   const pageSize = req.query.pageSize??10;
 

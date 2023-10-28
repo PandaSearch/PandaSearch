@@ -9,7 +9,7 @@
 </head>
 
 <body>
-  <header class="max-w-7xl mx-auto sticky top-0 z-50">
+  <header class="max-w-7xl mx-auto sticky top-0 z-40">
     <div class="navbar bg-base-100">
       <div class="flex-1">
         <a class="btn btn-ghost normal-case text-xl" href="/">
@@ -18,7 +18,7 @@
       </div>
       <div class="flex-none gap-2">
         <div class="join">
-          <input id="Keywords" class="input input-bordered w-80 focus:max-w-5xl join-item" type="text" placeholder="Please enter your search keywords..." value="<%= query %>"/>
+          <input id="Keywords" class="input input-bordered lg:w-80 focus:max-w-5xl join-item" type="text" placeholder="Please enter your search keywords..." value="<%= query.split('+').join(' ') %>"/>
           <button id="Search" class="btn join-item">Search</button>
         </div>
       </div>
@@ -28,10 +28,11 @@
   </header>
   <main class="max-w-7xl mx-auto mb-4">
 
-    <ul class="flex flex-row flex-wrap">
+    <ul class="flex lg:flex-row flex-col flex-wrap">
       <% results.forEach(function(result){ %>
         <li class="p-2 w-1/2">
-          <div class="card card-compact bg-base-100 hover:bg-base-200">
+          <div class="card card-compact bg-base-100 hover:bg-base-200 w-full">
+
             <div class="card-body">
               <h2 class="card-title w-full">
                 <a class="link w-full truncate" href="<%= result.href %>">

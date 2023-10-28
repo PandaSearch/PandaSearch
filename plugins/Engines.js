@@ -18,13 +18,11 @@ export default class Engines {
     }
   
     async search(query, { page = 1, pageSize = 10 }) {
-        const results = new Results(query);
+        const results = new Results(query, { page, pageSize });
 
         for (const engine of this.engines) {
           let engineResults = await engine(query, { page, pageSize });
-          
-          engineResults = engineResults.filter(result => result.title && result.href && result.content);
-
+          engineResults = engineResults.filter(result => result.title && result.href);
           results.push(...engineResults);
         }
 
@@ -32,8 +30,6 @@ export default class Engines {
     }
 
     initEngines() {
-        this.engines = [baidu, toutiao];
+        this.engines = [toutiao];
     }
-
-
   }

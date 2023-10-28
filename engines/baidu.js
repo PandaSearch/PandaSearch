@@ -1,7 +1,7 @@
 // 百度的脚本
 import network from '../network/index.js'
 import cheerio from 'cheerio'
-import { writeFile } from '../tools/index.js'
+import { writeFile, computeFactor } from '../tools/index.js'
 import axios from 'axios'
 import crypto from 'crypto'
 
@@ -9,6 +9,7 @@ import crypto from 'crypto'
 const about = {
     "website": 'https://www.baidu.com/',
     "website_id": 'baidu',
+    "factor": 7
 }
 
 const headers = {
@@ -34,7 +35,7 @@ export default async (query, { page, pageSize }) => {
     })
     
     const $ = cheerio.load(res.data);
-    // await writeFile($('#content_left').html());
+    await writeFile($('#content_left').html());
     const container = $('.result.c-container .c-container');
     const results = [];
 
@@ -49,6 +50,7 @@ export default async (query, { page, pageSize }) => {
             title: $('.c-title a', element).text(),
             content: $('span.content-right_8Zs40', element).text(),
             engine_id: about.website_id,
+            factor: computeFactor(index, about.factor)
         })
     }
 
@@ -65,14 +67,14 @@ const url2 = async (url) => {
         const options = {
             method: "GET",
             headers: {
-                "Host": info.host,
-                "Connection": "close"
+                // "Host": info.host,
+                // "Connection": "keep-alive"
             }
         };
         const response = await axios(url, options)
     
         const responseUrl = response?.request?.res?.responseUrl
-        console.log(`[url2]${url} -> ${responseUrl}`);
+        // console.log(`[url2]${url} -> ${responseUrl}`);
         
         return responseUrl
     } catch (error) {
