@@ -38,7 +38,7 @@ export default class Results {
     };
 
     remove () {
-        Result.store.delete(this.hash);
+        Results.store.delete(this.hash);
         clearTimeout(this.destroyTimer);
     };
     
