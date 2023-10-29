@@ -39,7 +39,7 @@ export default async (query, { page, pageSize }) => {
         const element = container[index];
         const href = await url2($('.res-title a', element).attr('data-mdurl'));
         const hash = crypto.createHash('sha256').update(href).digest('hex');
-        console.log('[quark:url]'+href)
+        console.log('[so:url]'+href)
 
         results.push({
             hash,
