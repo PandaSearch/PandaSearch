@@ -1,5 +1,7 @@
 ## PandaSearch
 
+[demo](http://search.onemue.cn/)
+
 ![PandaSearch 概念图](https://github.com/PandaSearch/PandaSearch/blob/main/images/image.png?raw=true)
 
 技术栈
@@ -18,7 +20,7 @@
 - network // 网络工具
 
 BUG
-- [V] 搜索多页如何处理
+- [v] 搜索多页如何处理
 - [ ] 多搜索结构如何处理
     > 引入因子概念，不同搜索引擎使用不同的因子，排序计算后的因子，以达到优先级计算
 - [V] 去除无效搜索结果
