@@ -1,8 +1,9 @@
 import fs from "fs";
 import path from "path";
 import Results from "./Results.js";
-import baidu from "../engines/baidu.js";
+import so from "../engines/so.js";
 import toutiao from "../engines/toutiao.js";
+import quark from "../engines/quark.js";
 
 export default class Engines {
     constructor() {
@@ -30,6 +31,6 @@ export default class Engines {
     }
 
     initEngines() {
-        this.engines = [toutiao];
+        this.engines = [so, toutiao, quark];
     }
   }

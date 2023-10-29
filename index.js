@@ -23,12 +23,7 @@ app.get('/search', async function(req, res){
   const query = req.query.query.split(/\s+/).join('+');
   const page = req.query.page??1;
   const pageSize = req.query.pageSize??10;
-
   const adjust = new Adjust(query, { page, pageSize });
-  
-
-  console.log(adjust.results)
-
   const results = await adjust.results();
 
   res.render('search', { results, query, page, pageSize });

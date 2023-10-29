@@ -13,6 +13,7 @@ export function writeFile(content, path = "./log/index.html") {
   });
 }
 
-export function computeFactor (index, factor=5, P=3) {
-  return (10_000 - factor) * (index + 1) * P
+
+export function computeFactor (index, factor=5, P=10) {
+  return (10000 - factor) + (index + 1) * P
 }

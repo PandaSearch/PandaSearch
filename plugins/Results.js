@@ -101,7 +101,6 @@ export default class Results {
         //     const pageSize = this.pageSize
         //     engines.search(this.query, {page, pageSize});
         // }
-
         return results;
     }
 }
